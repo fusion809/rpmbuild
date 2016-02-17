@@ -1,0 +1,8 @@
+BUILD/atom-*
+BUILD/vim-*
+BUILDROOT/atom-*
+BUILDROOT/vim-*
+OTHER
+build-rpm
+*.gz
+*.rpm
