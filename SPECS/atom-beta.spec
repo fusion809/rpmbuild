@@ -1,12 +1,11 @@
 Name:           atom-beta
 Version:        1.6.0
-Release:        3
+Release:        4
 Summary:        A hackable text editor for the 21st century
 License:        MIT
 Group:          Productivity/Publishing/Other
 Url:            https://atom.io/
 Source0:        v%{version}-beta%{release}.tar.gz
-Source1:        atom.desktop
 BuildRequires:  git-core
 BuildRequires:  hicolor-icon-theme
 BuildRequires:  npm
@@ -28,7 +27,11 @@ ever touching a config file.
 This is the beta release of Atom.
 
 %prep
-%setup -q
+%setup -q -n atom-%{version}-beta%{release}
+sed -i -e "s|<%= installDir %>/share/<%= appFileName %>/atom %U|/usr/bin/atom %U|g" \
+      -e "s/Development;//g" \
+      -e "s/<%= iconPath %>/atom-beta/g" \
+      resources/linux/atom.desktop.in > resources/linux/atom-beta.desktop
 
 %build
 # Hardened package
@@ -43,8 +46,7 @@ for i in 1024 512 256 128 64 48 32 24 16; do
     install -Dm 0644 /tmp/atom-build/icons/${i}.png \
       %{buildroot}%{_datadir}/icons/hicolor/${i}x${i}/apps/%{name}.png
 done
-install -Dm 0644 %{S:1} %{buildroot}%{_datadir}/applications/%{name}.desktop
-%suse_update_desktop_file %{name}
+mv %{buildroot}%{_datadir}/applications/atom.desktop %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 %post
 %desktop_database_post
@@ -58,14 +60,14 @@ install -Dm 0644 %{S:1} %{buildroot}%{_datadir}/applications/%{name}.desktop
 %defattr(-,root,root,-)
 %doc CONTRIBUTING.md README.md docs/
 %{license} LICENSE.md
-%{_bindir}/%{name}
-%{_bindir}/apm-beta
-%dir %{_datadir}/%{name}
-%{_datadir}/%{name}/*
-%{_datadir}/%{name}
-%{_datadir}/applications/%{name}.desktop
-%{_datadir}/icons/hicolor/*/apps/%{name}.png
-%exclude %{_datadir}/%{name}/libgcrypt.so.*
-%exclude %{_datadir}/%{name}/libnotify.so.*
+%{_bindir}/atom
+%{_bindir}/apm
+%dir %{_datadir}/atom
+%{_datadir}/atom/*
+%{_datadir}/atom
+%{_datadir}/applications/atom-beta.desktop
+%{_datadir}/icons/hicolor/*/apps/atom-beta.png
+%exclude %{_datadir}/atom/libgcrypt.so.*
+%exclude %{_datadir}/atom/libnotify.so.*
 
 %changelog
