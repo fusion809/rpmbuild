@@ -17,7 +17,7 @@
 
 
 %define pkg_version 7.4
-%define patchlevel  1344
+%define patchlevel  1385
 %define VIM_SUBDIR vim74
 %define site_runtimepath /usr/share/vim/site
 %define make make VIMRCLOC=/etc VIMRUNTIMEDIR=/usr/share/vim/current MAKE="make -e" %{?_smp_mflags}
@@ -34,11 +34,7 @@ BuildRequires:  gtk2-devel
 %if 0%{?suse_version} > 1200
 BuildRequires:  pkgconfig(xt)
 %endif
-%if 0%{?suse_version}
-BuildRequires:  krb5-mini
-%else
 BuildRequires:  krb5
-%endif
 BuildRequires:  libacl-devel
 BuildRequires:  lua-devel
 BuildRequires:  ncurses-devel
@@ -300,16 +296,36 @@ install -D -m 0644 %{SOURCE3} %{buildroot}%{_sysconfdir}/vimrc
 install -D -m 0644 %{SOURCE8} %{buildroot}%{_sysconfdir}/gvimrc
 
 # create site wide runtime directory
-mkdir -p -m 0755 %{buildroot}%{site_runtimepath}/after
-mkdir -m 0755 %{buildroot}%{site_runtimepath}/autoload
-mkdir -m 0755 %{buildroot}%{site_runtimepath}/colors
-mkdir -m 0755 %{buildroot}%{site_runtimepath}/doc
-mkdir -m 0755 %{buildroot}%{site_runtimepath}/plugin
-mkdir -m 0755 %{buildroot}%{site_runtimepath}/syntax
-mkdir -m 0755 %{buildroot}%{site_runtimepath}/ftdetect
-mkdir -m 0755 %{buildroot}%{site_runtimepath}/after/syntax
-mkdir -m 0755 %{buildroot}%{_datadir}/vim/current/skeletons
-mkdir -m 0755 %{buildroot}%{_sysconfdir}/skel
+if ! [[ -d %{buildroot}%{site_runtimepath}/after ]]; then
+  mkdir -p -m 0755 %{buildroot}%{site_runtimepath}/after
+fi
+if ! [[ -d %{buildroot}%{site_runtimepath}/autoload ]]; then
+  mkdir -m 0755 %{buildroot}%{site_runtimepath}/autoload
+fi
+if ! [[ -d %{buildroot}%{site_runtimepath}/colors ]]; then
+  mkdir -m 0755 %{buildroot}%{site_runtimepath}/colors
+fi
+if ! [[ -d %{buildroot}%{site_runtimepath}/doc ]]; then
+  mkdir -m 0755 %{buildroot}%{site_runtimepath}/doc
+fi
+if ! [[ -d %{buildroot}%{site_runtimepath}/plugin ]]; then
+  mkdir -m 0755 %{buildroot}%{site_runtimepath}/plugin
+fi
+if ! [[ -d %{buildroot}%{site_runtimepath}/syntax ]]; then
+  mkdir -m 0755 %{buildroot}%{site_runtimepath}/syntax
+fi
+if ! [[ -d %{buildroot}%{site_runtimepath}/ftdetect ]]; then
+  mkdir -m 0755 %{buildroot}%{site_runtimepath}/ftdetect
+fi
+if ! [[ -d %{buildroot}%{site_runtimepath}/after/syntax ]]; then
+  mkdir -m 0755 %{buildroot}%{site_runtimepath}/after/syntax
+fi
+if ! [[ -d %{buildroot}%{_datadir}/vim/current/skeletons ]]; then
+  mkdir -m 0755 %{buildroot}%{_datadir}/vim/current/skeletons
+fi
+if ! [[ -d %{buildroot}%{_sysconfdir}/skel ]]; then
+  mkdir -m 0755 %{buildroot}%{_sysconfdir}/skel
+fi
 
 # install spec helper
 install -m 0644 %{SOURCE20}  %{buildroot}%{_datadir}/vim/current/skeletons/skeleton.spec
@@ -356,7 +372,9 @@ rm -f %{buildroot}%{_datadir}/vim/%{VIM_SUBDIR}/macros/maze/*.c
 rm %{buildroot}%{_datadir}/vim/%{VIM_SUBDIR}/tools/demoserver.py
 
 # Create ghost files (see vim.conf)
-mkdir -p %{buildroot}/var/run/vi.recover
+if ! [[ -d %{buildroot}/var/run/vi.recover ]]; then
+  mkdir -p %{buildroot}/var/run/vi.recover
+fi
 
 %fdupes -s %{buildroot}%{_datadir}/vim/%{VIM_SUBDIR}/lang
 %fdupes -s %{buildroot}%{_datadir}/vim/%{VIM_SUBDIR}/tutor
@@ -518,6 +536,7 @@ make test
 %{_bindir}/gvi
 %{_bindir}/gview
 %{_bindir}/gvim
+%{_bindir}/gvimtutor
 %{_bindir}/gvimdiff
 %{_bindir}/rgview
 %{_bindir}/rgvim
