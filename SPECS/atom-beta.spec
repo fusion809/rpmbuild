@@ -1,6 +1,6 @@
 Name:           atom-beta
-Version:        1.6.0
-Release:        4
+Version:        1.7.0
+Release:        0
 Summary:        A hackable text editor for the 21st century
 License:        MIT
 Group:          Productivity/Publishing/Other
