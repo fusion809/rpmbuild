@@ -1,3 +1,4 @@
+SPEC=SPECS
 if ! [[ -d BUILD ]]; then
 	mkdir BUILD
 fi
