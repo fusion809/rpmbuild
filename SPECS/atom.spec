@@ -1,5 +1,5 @@
 Name:           atom
-Version:        1.6.0
+Version:        1.7.1
 Release:        0
 Summary:        A hackable text editor for the 21st century
 License:        MIT
