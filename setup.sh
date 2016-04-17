@@ -15,6 +15,6 @@ if ! [[ -d SRPMS ]]; then
 fi
 
 verc=$(sed -n 's/Version:\s\s\s\s\s\s\s\s*//p' SPECS/atom.spec)
-if [[ -f SOURCES/v$verc.tar.gz ]]; then
+if ! [[ -f SOURCES/v$verc.tar.gz ]]; then
 	curl -sL https://github.com/atom/atom/archive/v$verc.tar.gz > SOURCES/v$verc.tar.gz
 fi
