@@ -6,3 +6,5 @@ OTHER
 build-rpm
 *.gz
 *.rpm
+*.lz
+*.xz
