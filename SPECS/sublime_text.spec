@@ -64,6 +64,9 @@ cp -fpr %_builddir/%{name}/%{name}/* %{buildroot}/opt/%{name}/
 rm -f %{buildroot}/opt/%{name}/%{name}.desktop
 chmod +x %{buildroot}/opt/%{name}/%{name}
 ln -sf /opt/%{name}/%{name} %{buildroot}/usr/bin/sublime3
+ln -sf /opt/%{name}/%{name} %{buildroot}/usr/bin/subl3
+ln -sf /opt/%{name}/%{name} %{buildroot}/usr/bin/sublime_text
+ln -sf /opt/%{name}/%{name} %{buildroot}/usr/bin/sublime_text3
 
 # Creating desktop icon...
 echo "[Desktop Entry]" > %{buildroot}/usr/share/applications/%{name}.desktop
