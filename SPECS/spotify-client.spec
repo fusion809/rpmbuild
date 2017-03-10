@@ -10,7 +10,7 @@
 
 Name:           spotify-client
 Summary:        Spotify music player native client
-Version:        1.0.48.103.g15edf1ec
+Version:        1.0.49.125.g72ee7853
 Release:        1%{?dist}
 Epoch:          1
 License:        https://www.spotify.com/legal/end-user-agreement
@@ -18,8 +18,8 @@ URL:            http://www.spotify.com/
 ExclusiveArch:  x86_64 %{ix86}
 
 # Misaligned versions between 32 and 64 bit, sometimes on minor releases as well. Just use the base version.
-Source0:        http://repository.spotify.com/pool/non-free/s/%{name}/%{name}_%{version}-94_amd64.deb
-Source1:        http://repository.spotify.com/pool/non-free/s/%{name}/%{name}_%{version}-14_i386.deb
+Source0:        http://repository.spotify.com/pool/non-free/s/%{name}/%{name}_%{version}-111_amd64.deb
+Source1:        http://repository.spotify.com/pool/non-free/s/%{name}/%{name}_%{version}-22_i386.deb
 Source3:        spotify.xml
 Source4:        spotify.appdata.xml
 
